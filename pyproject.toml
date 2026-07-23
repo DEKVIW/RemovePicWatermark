@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "remove-pic-watermark"
+version = "0.2.15"
+description = "Profile-based watermark detection and inpainting with ROI template capture and desktop GUI."
+requires-python = ">=3.10"
+dependencies = [
+  "numpy>=1.24",
+  "opencv-python>=4.8",
+  "Pillow>=10.0",
+]
+
+[project.optional-dependencies]
+gui = [
+  "PySide6>=6.6",
+  "PySide6-Fluent-Widgets>=1.6",
+]
+iopaint = [
+  "iopaint",
+]
+yolo = [
+  "ultralytics>=8.0",
+]
+# EdgeSAM (legacy optional; point-prompt path deprecated)
+sam = [
+  "yacs>=0.1.8",
+  "loralib>=0.1.2",
+  "torch>=2.0",
+]
+# AI matting for template capture: BiRefNet (weights in workspace/models/birefnet)
+matting = [
+  "torch>=2.0",
+  "transformers>=4.40",
+  "kornia>=0.7",
+  "torchvision>=0.15",
+  "einops>=0.7",
+  "timm>=0.9",
+  "huggingface_hub>=0.20",
+]
+
+[project.scripts]
+remove-pic-watermark = "remove_pic_watermark.cli:main"
+remove-pic-watermark-gui = "remove_pic_watermark.gui.app:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
